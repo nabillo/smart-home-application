@@ -1,33 +1,32 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { User, Lock, ArrowRight } from 'lucide-react';
-import axios from 'axios';
+import api from '@/api';
+import { useAuthStore } from '@/store/authStore';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('admin');
+  const [password, setPassword] = useState('admin_password');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
     try {
-      const response = await axios.post('/api/v1/login', { username, password });
-      console.log('Login successful:', response.data);
-      // Here you would typically save the token and redirect the user
-      // For example: localStorage.setItem('token', response.data.token);
-      // window.location.href = '/dashboard';
-    } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        setError(err.response.data.message || 'Login failed. Please check your credentials.');
-      } else {
-        setError('An unexpected error occurred. Please try again.');
-      }
+      const response = await api.post('/login', { username, password });
+      const { user, token } = response.data.data;
+      login(user, response.data.token);
+      navigate('/dashboard');
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
     } finally {
       setIsLoading(false);
     }
@@ -94,7 +93,7 @@ const LoginPage = () => {
           </form>
 
           <p className="text-center text-xs text-muted-foreground">
-            © 2025 Smart Home Inc. All rights reserved.
+            © 2025 AuraHome Inc. All rights reserved.
           </p>
         </motion.div>
       </div>

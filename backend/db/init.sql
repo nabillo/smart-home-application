@@ -34,7 +34,7 @@ CREATE TABLE Permissions (
 );
 
 -- Join table to link Roles to Permissions (many-to-many relationship).
-CREATE TABLE RolePermissions (
+CREATE TABLE Role_Permissions (
     role_id INTEGER NOT NULL REFERENCES Roles(role_id) ON DELETE CASCADE,
     permission_id INTEGER NOT NULL REFERENCES Permissions(permission_id) ON DELETE CASCADE,
     CONSTRAINT role_permission_pk PRIMARY KEY (role_id, permission_id)

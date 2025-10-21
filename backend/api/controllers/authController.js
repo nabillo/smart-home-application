@@ -16,7 +16,19 @@ export const login = async (req, res) => {
   }
 
   try {
-    const userResult = await query('SELECT * FROM users WHERE username = $1', [username]);
+    const userQuery = `
+      SELECT 
+        u.user_id, 
+        u.username, 
+        u.email, 
+        u.password_hash,
+        r.role_id,
+        r.role_name
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.role_id
+      WHERE u.username = $1
+    `;
+    const userResult = await query(userQuery, [username]);
 
     if (userResult.rows.length === 0) {
       return res.status(401).json({ message: 'Invalid credentials' });
@@ -32,16 +44,14 @@ export const login = async (req, res) => {
 
     const token = signToken(user.user_id);
 
+    // Remove password hash from the user object before sending the response
+    delete user.password_hash;
+
     res.status(200).json({
       status: 'success',
       token,
       data: {
-        user: {
-          user_id: user.user_id,
-          username: user.username,
-          email: user.email,
-          is_admin: user.is_admin,
-        },
+        user,
       },
     });
   } catch (error) {

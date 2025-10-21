@@ -36,7 +36,7 @@ This project leverages a modern, type-safe, and performant technology stack for 
 |---------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | **Frontend**  | [**React**](https://react.dev/) ([Vite](https://vitejs.dev/)), [**TypeScript**](https://www.typescriptlang.org/), [**Tailwind CSS**](https://tailwindcss.com/), [**Framer Motion**](https://www.framer.com/motion/), [**Lucide Icons**](https://lucide.dev/) |
 | **Backend**   | [**Node.js**](https://nodejs.org/), [**Express.js**](https://expressjs.com/), [**JWT**](https://jwt.io/), [**bcryptjs**](https://github.com/dcodeIO/bcrypt.js)                                                              |
-| **Database**  | [**PostgreSQL**](https://www.postgresql.org/) (hosted on [**Supabase**](https://supabase.com/))                                                                                                       |
+| **Database**  | [**PostgreSQL**](https://www.postgresql.org/)                                                                                                       |
 | **Dev Tools** | [**ESLint**](https://eslint.org/), [**Nodemon**](https://nodemon.io/), [**Concurrently**](https://github.com/open-cli-tools/concurrently)                                                                                             |
 
 ---
@@ -60,6 +60,7 @@ Follow these steps to get the project running on your local machine.
 
 - [Node.js](https://nodejs.org/en/) (v18.x or later)
 - [npm](https://www.npmjs.com/) (v9.x or later)
+- A local [PostgreSQL](https://www.postgresql.org/download/) server running.
 
 ### Installation & Setup
 
@@ -77,10 +78,10 @@ Follow these steps to get the project running on your local machine.
 3.  **Configure Backend Environment:**
     - Navigate to the `/backend` directory.
     - Create a `.env` file by copying the example: `cp .env.example .env`
-    - Update the `.env` file with your credentials:
+    - Update the `.env` file if your local database credentials differ from the default:
       ```env
-      # PostgreSQL Database Connection (e.g., from Supabase)
-      DATABASE_URL="your_postgresql_connection_string"
+      # PostgreSQL Database Connection for local instance
+      DATABASE_URL="postgresql://postgres:postgres@localhost:5432/aurahome"
 
       # JWT Configuration
       JWT_SECRET="generate_a_strong_secret_key"
@@ -91,7 +92,8 @@ Follow these steps to get the project running on your local machine.
       ```
 
 4.  **Initialize the Database:**
-    - Connect to your PostgreSQL database.
+    - Create a new database in your local PostgreSQL instance named `aurahome`.
+    - Connect to your `aurahome` database.
     - Execute the SQL script located at `/backend/db/init.sql` to create the necessary tables, roles, and seed the initial admin user.
     - **Default Admin Credentials:** `username: admin`, `password: admin_password`
 
