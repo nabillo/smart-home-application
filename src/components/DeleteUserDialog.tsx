@@ -10,7 +10,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/Dialog"
-import api from "@/api"
+import api from "@/api/api"
 import { User } from "@/pages/UsersPage"
 
 interface DeleteUserDialogProps {

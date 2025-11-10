@@ -10,7 +10,7 @@ const getRolesWithPermissions = async (roleId = null) => {
         (
           SELECT json_agg(p.* ORDER BY p.permission_name)
           FROM permissions p
-          JOIN Role_Permissions rp ON p.permission_id = rp.permission_id
+          JOIN role_permissions rp ON p.permission_id = rp.permission_id
           WHERE rp.role_id = r.role_id
         ),
         '[]'::json
@@ -86,12 +86,12 @@ export const updateRole = async (req, res) => {
     await query('UPDATE roles SET role_name = $1 WHERE role_id = $2', [role_name, role_id]);
 
     // Clear existing permissions for this role
-    await query('DELETE FROM Role_Permissions WHERE role_id = $1', [role_id]);
+    await query('DELETE FROM role_permissions WHERE role_id = $1', [role_id]);
 
     // Insert new permissions
     if (permission_ids.length > 0) {
       const insertValues = permission_ids.map((pid, i) => `($1, $${i + 2})`).join(',');
-      const insertQuery = `INSERT INTO Role_Permissions (role_id, permission_id) VALUES ${insertValues}`;
+      const insertQuery = `INSERT INTO role_permissions (role_id, permission_id) VALUES ${insertValues}`;
       await query(insertQuery, [role_id, ...permission_ids]);
     }
 

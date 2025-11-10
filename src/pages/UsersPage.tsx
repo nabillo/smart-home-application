@@ -10,7 +10,7 @@ import {
   ColumnFiltersState,
 } from "@tanstack/react-table";
 
-import api from "@/api";
+import api from "@/api/api";
 import { columns } from "@/components/columns";
 import { DataTable } from "@/components/DataTable";
 import { AddUserDialog } from "@/components/AddUserDialog";

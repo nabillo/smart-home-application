@@ -5,7 +5,7 @@ import {
   getSortedRowModel,
   SortingState,
 } from "@tanstack/react-table";
-import api from '@/api';
+import api from '@/api/api';
 import { Role, Permission } from '@/types';
 import { DataTable } from '@/components/DataTable';
 import { roleColumns } from '@/components/roleColumns';

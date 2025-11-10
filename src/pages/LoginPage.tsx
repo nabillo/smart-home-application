@@ -5,7 +5,7 @@ import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { User, Lock, ArrowRight } from 'lucide-react';
-import api from '@/api';
+import api from '@/api/api';
 import { useAuthStore } from '@/store/authStore';
 
 const LoginPage = () => {

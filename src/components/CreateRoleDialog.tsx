@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/Label"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import api from "@/api"
+import api from "@/api/api"
 
 const createRoleSchema = z.object({
   role_name: z.string().min(3, "Role name must be at least 3 characters"),

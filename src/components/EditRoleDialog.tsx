@@ -15,7 +15,7 @@ import { Checkbox } from "@/components/ui/Checkbox"
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import api from "@/api"
+import api from "@/api/api"
 import { Role, Permission } from "@/types"
 
 const editRoleSchema = z.object({

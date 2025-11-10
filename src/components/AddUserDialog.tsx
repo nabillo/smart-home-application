@@ -22,7 +22,7 @@ import {
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import api from "@/api"
+import api from "@/api/api"
 import { PlusCircle } from "lucide-react"
 import { Role } from "@/types"
 
