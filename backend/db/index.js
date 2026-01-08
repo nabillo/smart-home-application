@@ -12,7 +12,7 @@ const sslConfig = process.env.NODE_ENV === 'production'
   ? { ssl: { rejectUnauthorized: false } } 
   : {};
 
-const pool = new Pool({
+export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ...sslConfig,
 });
